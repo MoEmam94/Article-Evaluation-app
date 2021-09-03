@@ -8,22 +8,22 @@
 
   <body>
     <main class='container-fluid a'>
-      <div class="col-9 m-3 pb-5 app justify-content-center d-flex flex-column">
+      <div class="col-12 app justify-content-center d-flex flex-column">
         <div class='app-title'>Article Evaluation APP!</div>
         <p>Enter a URL of an article / a blog to discover its sentiment.</p>
             <section>
-                <form class="form-group pb-5" onsubmit="return Client.handleSubmit(event)">
+                <form class="form-group" onsubmit="return Client.handleSubmit(event)">
                     <input id="url" class='form-control' type="text" name="input" value="" placeholder="Enter URL here"><br>
                     <input class='btn btn-primary col-12' type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
                 </form>
             </section>
-        <ul class="list-group">
+        <ul class="list-group col-12">
           <strong>Form Results:</strong>
           <li class="list-group-item" id="agreement"></li>
           <li class="list-group-item" id="subjectivity"></li>
           <li class="list-group-item" id="confidence"></li>
           <li class="list-group-item" id="irony"></li>
-          <li class="list-group-item" id="score_tag"></li>
+          <li class="list-group-item last-item" id="score_tag"></li>
         </ul>
       </div>
     </main>
