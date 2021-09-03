@@ -3,40 +3,32 @@
   <head>
     <meta charset="utf-8" />
     <title>Sentiment Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   </head>
 
   <body>
-    <main>
-      <div class="container">
+    <main class='container-fluid a'>
+      <div class="col-9 m-3 pb-5 app justify-content-center d-flex flex-column">
+        <div class='app-title'>Article Evaluation APP!</div>
         <p>Enter a URL of an article / a blog to discover its sentiment.</p>
-        <section>
-          <form id="form">
-            <label for="article-url">URL</label>
-            <input id="article-url" type="text" name="input" value="" placeholder="Enter Article URL here" />
-            <button
-              type="submit"
-              class="btn-submit"
-            >
-              Submit
-            </button>
-          </form>
-        </section>
-
-        <section>
+            <section>
+                <form class="form-group pb-5" onsubmit="return Client.handleSubmit(event)">
+                    <input id="url" class='form-control' type="text" name="input" value="" placeholder="Enter URL here"><br>
+                    <input class='btn btn-primary col-12' type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
+                </form>
+            </section>
+        <ul class="list-group">
           <strong>Form Results:</strong>
-          <div id="text"></div>
-          <div id="agreement"></div>
-          <div id="subjectivity"></div>
-          <div id="confidence"></div>
-          <div id="irony"></div>
-          <div id="score_tag"></div>
-        </section>
+          <li class="list-group-item" id="agreement"></li>
+          <li class="list-group-item" id="subjectivity"></li>
+          <li class="list-group-item" id="confidence"></li>
+          <li class="list-group-item" id="irony"></li>
+          <li class="list-group-item" id="score_tag"></li>
+        </ul>
       </div>
     </main>
     <script>
-      // Check that service workers are supported
       if ('serviceWorker' in navigator) {
-        // Use the window load event to keep the page load performant
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/service-worker.js')
         })

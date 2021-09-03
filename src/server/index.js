@@ -1,51 +1,47 @@
-// TODO: Configure the environment variables
-const dotenv = require('dotenv');
-dotenv.config();
-
-//console.log(`Your API key is ${process.env.API_KEY}`);
-
+const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const fetch = require('node-fetch')
+
+const app = express()
+dotenv.config();
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(express.static('dist'))
+
 
 const PORT = 8081
 
-// TODO add Configuration to be able to use env variables
 
-
-// TODO: Create an instance for the server
-// TODO: Configure cors to avoid cors-origin issue
-// TODO: Configure express to use body-parser as middle-ware.
-// TODO: Configure express static directory.
 
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
+    res.sendFile('dist/index.html')
 })
-// a route that handling post request for new URL that coming from the frontend
-/* TODO:
-    1. GET the url from the request body
-    2. Build the URL it should be something like `${BASE_API_URL}?key=${MEAN_CLOUD_API_KEY}&url=${req.body.url}&lang=en`
-    3. Fetch Data from API
-    4. Send it to the client
-    5. REMOVE THIS TODO AFTER DOING IT 😎😎
-    server sends only specified data to the client with below codes
-     const sample = {
-       text: '',
-       score_tag : '',
-       agreement : '',
-       subjectivity : '',
-       confidence : '',
-       irony : ''
-     }
-*/
+
+console.log(`API Key is ${process.env.API_KEY}`)
+const APIBaseUrl = 'https://api.meaningcloud.com/sentiment-2.1?'
+let inputedURL = []
+
+app.post('/evaluate-url', async function(req, res) {
+    inputedURL = req.body.url
+    console.log(`You entered: ${inputedURL}`)
+    console.log(`${APIBaseUrl}key=${process.env.API_KEY}&&url=${inputedURL}&lang=en`);
+    const link = `${APIBaseUrl}key=${process.env.API_KEY}&&url=${inputedURL}&lang=en`
+    const APIResponse = await fetch(link)
+    const data = await APIResponse.json()
+    console.log('Yeah Boy!')
+    res.send(data)
+})
+
 
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 })
 
-// designates what port the app will listen to for incoming requests
 app.listen(PORT, (error) => {
     if (error) throw new Error(error)
     console.log(`Server listening on port ${PORT}!`)
 })
-
-// TODO: export app to use it in the unit testing

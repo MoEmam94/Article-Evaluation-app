@@ -1,0 +1,26 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: blue;
+$secondary-color: rgb(187, 210, 228);
+
+
+h2 {
+    color: $primary-color;
+    text-align: center;
+}
+
+.app {
+    background-color: $secondary-color;
+    text-align: center;
+    border: 5px red;
+    border-radius: 50px;
+    align-self: center;
+}
+
+.app-title {
+    font-size: large;
+    font-weight: bold;
+}
+
+form, ul {
+    padding: 15px;
+}
